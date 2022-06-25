@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-toolbar color="dailynote">
+    <!-- On ajoute ICI la nouvelle couleur  -->
+
+    <ion-buttons slot="start">
+      <!-- On ajoute ICI le bouton menu -->
+
+      <ion-menu-button></ion-menu-button>
+
+    </ion-buttons>
+
+    <ion-title>Mes notes</ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-button>
+        <!-- On ajoute un bouton de recherche -->
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) -->
+  <ion-card *ngFor="let note of notesService.notes" [routerLink]="'note/' + note.id" routerDirection="forward">
+    <ion-card-header>
+      <ion-card-title>{{note.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{note.content}}</p>
+      <h6 class="ion-text-end">Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <!--  Un bouton flottant d'ajout permettant la création d'une note -->
+
+    <ion-fab-button color="dailynote" (click)="addNote()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab>
+
+</ion-content>

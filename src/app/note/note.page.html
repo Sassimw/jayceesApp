@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-toolbar color="dailynote">
+
+    <ion-buttons slot="start"> <!--  Un bouton  permettant le retour en arrière -->
+
+      <ion-back-button defaultHref="/menu/notes" text="Retour"></ion-back-button>
+
+    </ion-buttons>
+
+    <ion-title>{{note.title}}</ion-title>
+
+    <ion-buttons slot="end"> <!--  Un bouton  permettant la suppression d'une note -->
+
+      <ion-button (click)="deleteNote()">
+
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  {{note.content}}
+
+  <h6 class="ion-text-end">Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+
+</ion-content>
