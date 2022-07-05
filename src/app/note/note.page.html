@@ -4,17 +4,26 @@
 
     <ion-buttons slot="start"> <!--  Un bouton  permettant le retour en arrière -->
 
-      <ion-back-button defaultHref="/menu/notes" text="Retour"></ion-back-button>
+      <ion-back-button defaultHref="/menu/notes" text=""></ion-back-button>
 
     </ion-buttons>
 
     <ion-title>{{note.title}}</ion-title>
 
-    <ion-buttons slot="end"> <!--  Un bouton  permettant la suppression d'une note -->
+    <ion-buttons *ngIf="!note.isDone"  slot="end"> <!--  Un bouton  permettant la modification d'une note -->
 
-      <ion-button (click)="deleteNote()">
+      <ion-button (click)="saveNote()">
 
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+    <ion-buttons *ngIf="!note.isDone" slot="end"> <!--  Un bouton  permettant la suppression d'une note  ion-button (click)="deleteNote()">-->
+      <!-- button permet de modifier l'etat d'une note-->
+      <ion-button (click)="doneNote()">
+
+        <ion-icon slot="icon-only" name="checkmark-done"></ion-icon>
 
       </ion-button>
 

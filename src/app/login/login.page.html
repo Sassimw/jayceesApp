@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-toolbar color="dailynote">
+    <ion-title>DailyNote</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Connexion</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="ion-text-center">Bienvenue sur DailyNote : <br />Le pense-bête qu'il vous faut !
+
+    </ion-card-content>
+
+  </ion-card>
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
+
+    <ion-item>
+      <ion-label position="floating" color="dailynote">Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+
+    </ion-item>
+
+    <div>
+
+      <ng-container *ngFor="let validation of validation_messages.email">
+
+        <div class="error-message"
+          *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+
+          {{ validation.message }}
+
+        </div>
+
+      </ng-container>
+
+    </div>
+
+    <ion-item>
+      <ion-label position="floating" color="dailynote">Password</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+    </ion-item>
+    <div>
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message"
+          *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+          {{ validation.message }} </div>
+      </ng-container>
+    </div>
+    <ion-button class="ion-margin-top" color="dailynote" expand="block" type="submit"
+      [disabled]="!validations_form.valid">Connexion</ion-button>
+    <div class="ion-text-center ion-margin-top">
+      <ion-text color="danger">{{errorMessage}}</ion-text>
+    </div>
+  </form>
+  <p class="ion-text-center ion-margin-top">Pas de compte? <a (click)="goToRegisterPage()">Créer un compte.</a></p>
+</ion-content>

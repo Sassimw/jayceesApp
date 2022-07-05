@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusBar } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ import { Platform } from '@ionic/angular';
 export class AppComponent { 
 
   constructor( 
+
+    private authService : AuthService,
 
     private platform: Platform, 
 
@@ -24,6 +27,7 @@ export class AppComponent {
 
     this.initializeApp(); 
 
+
   } 
 
  
@@ -35,10 +39,20 @@ export class AppComponent {
 
       //this.splashScreen.hide(); 
 
-      this.router.navigateByUrl("menu/home"); 
+      //this.router.navigateByUrl("menu/home"); 
+
+      this.isLoggedIn() ; 
 
     }); 
 
   } 
+
+  isLoggedIn(){
+
+    if (this.authService.isLoggedIn){  this.router.navigateByUrl("/menu/home");} 
+
+    else {this.router.navigateByUrl("/login");}
+
+  }
 
 } 

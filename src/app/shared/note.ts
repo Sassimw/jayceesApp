@@ -4,5 +4,5 @@ export interface note {
     title? : string ;
     content? : string ;
     time_stamp? : Date ;
-    
+    isDone? : boolean ;
 }

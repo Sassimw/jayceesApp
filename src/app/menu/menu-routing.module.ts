@@ -27,6 +27,19 @@ const routes: Routes = [
       {
           path: 'notes/note/:id',
           loadChildren: () => import('../note/note.module').then( m => m.NotePageModule)
+      },
+
+      {
+        path: 'home/note/:id',
+        loadChildren: () => import('../note/note.module').then( m => m.NotePageModule)
+      },
+      {
+        path: 'notes-history/note/:id',
+        loadChildren: () => import('../note/note.module').then( m => m.NotePageModule)
+      },
+      {
+        path: 'notes-history',
+        loadChildren: () => import('../notes-history/notes-history.module').then( m => m.NotesHistoryPageModule)
       }
 
     ] 

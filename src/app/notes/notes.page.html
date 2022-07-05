@@ -3,22 +3,21 @@
   <ion-toolbar color="dailynote">
     <!-- On ajoute ICI la nouvelle couleur  -->
 
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!isSearchBarOpened" >
       <!-- On ajoute ICI le bouton menu -->
 
       <ion-menu-button></ion-menu-button>
 
     </ion-buttons>
 
-    <ion-title>Mes notes</ion-title>
+    <ion-title *ngIf="!isSearchBarOpened" >Mes notes</ion-title>
+
+    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="true" animated="true" (ionChange)="onChangeSearch($event)" (ionCancel) = "isSearchBarOpened=false"></ion-searchbar>
 
     <ion-buttons slot="end">
-
-      <ion-button>
-        <!-- On ajoute un bouton de recherche -->
+      <ion-button ion-button icon-only (click)="isSearchBarOpened=true"> 
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
-
     </ion-buttons>
 
   </ion-toolbar>
@@ -26,18 +25,28 @@
 </ion-header>
 
 <ion-content>
-  <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) -->
-  <ion-card *ngFor="let note of notesService.notes" [routerLink]="'note/' + note.id" routerDirection="forward">
-    <ion-card-header>
-      <ion-card-title>{{note.title}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{note.content}}</p>
-      <h6 class="ion-text-end">Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
-    </ion-card-content>
-  </ion-card>
+  <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) let note of notesNotDone-->
   
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+
+
+
+  <!--<div *ngFor="let note of notesService.notes">-->
+    <div *ngFor="let note of searchedItem">
+    <ion-card *ngIf="!note.isDone" [routerLink]="'note/' + note.id" routerDirection="forward">
+      
+      <ion-card-header>
+        <ion-card-title>{{note.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{note.content}}</p>
+        <h6 class="ion-text-end">Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+      </ion-card-content>
+ 
+  </ion-card>
+
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <!--  Un bouton flottant d'ajout permettant la création d'une note -->
 
     <ion-fab-button color="dailynote" (click)="addNote()">

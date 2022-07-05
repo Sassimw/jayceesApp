@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="dailynote" >
-    <ion-buttons slot="start" > 
-      <ion-menu-button>  </ion-menu-button>
+  <ion-toolbar color="dailynote">
+    <ion-buttons slot="start">
+      <ion-menu-button> </ion-menu-button>
     </ion-buttons>
     <ion-title>
       Daily note
@@ -15,21 +15,20 @@
     <ion-card-header>
       <img class="welcome-card" src="assets/dailynote_hero.jpg">
       <ion-card-subtitle>
-        Pour ne rien oublier , ou que vous soyez ! 
+        Pour ne rien oublier , ou que vous soyez !
       </ion-card-subtitle>
       <ion-card-title>
         NOTE 1
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Notez tout ce qui vous passe par la tête. Ajoutez des notes, 
-
-        des listes, des photos et des contenus audio.</p> 
+      <p>Notez tout ce qui vous passe par la tête. Ajoutez des notes,
+        des listes, des photos et des contenus audio.</p>
     </ion-card-content>
   </ion-card>
 
 
-
+  <!--
   <ion-card *ngFor ="let note of notes">
     <ion-card-header>
       <ion-card-title>
@@ -41,21 +40,39 @@
       {{note.content}}
     </ion-card-content>
   </ion-card>
+-->
 
-  
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed"> 
+  <!--On rajoute ici  la dernière note-->
 
-      <ion-fab-button color= "dailynote" (click)="addNote()"> 
+  <ng-container *ngIf="note">
+    <ion-item>
+      <ion-label> Dernière note :</ion-label>
+    </ion-item>
+    <ion-card [routerLink]="'note/' + note.id" routerDirection="forward">
+      <ion-card-header>
+        <ion-card-title>{{note.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{note.content}}</p>
+        <h6 class="ion-text-end">
+          Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 
-        <ion-icon name="add"></ion-icon> 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
 
-      </ion-fab-button> 
+    <ion-fab-button color="dailynote" (click)="addNote()">
+
+      <ion-icon name="add"></ion-icon>
+
+    </ion-fab-button>
 
 
-      
-     </ion-fab> 
 
- <!-- <div id="container">
+  </ion-fab>
+
+  <!-- <div id="container">
     <ion-button color ='dailynote' >Default</ion-button>
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
