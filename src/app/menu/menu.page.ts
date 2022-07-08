@@ -15,6 +15,7 @@ export class MenuPage implements OnInit {
     { title: 'Notes en cours', url: '/menu/notes', icon: 'paper-plane'}, 
     { title: 'Notes terminé', url: '/menu/notes-history', icon: 'checkmark-done' },
     { title: 'Méteo', url: '/menu/weather', icon: 'sunny' },
+    { title: 'Contacts', url: '/menu/contacts', icon: 'call' },
     { title: 'Mon profil', url: '/menu/profile', icon: 'person-circle' } 
   ]; 
   

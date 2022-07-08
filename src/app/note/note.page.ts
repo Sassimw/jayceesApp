@@ -16,9 +16,9 @@ export class NotePage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
 
-    private notesService: NotesService,private alertCtrl:AlertController) {
+    private notesService: NotesService, private alertCtrl: AlertController) {
     // Initialisation d'une note à vide
-    this.note = { id: '', title: '', content: '',isDone:false };
+    this.note = { id: '', title: '', content: '', isDone: false };
   }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class NotePage implements OnInit {
 
     this.notesService.deleteNote(this.note).then(res => this.router.navigate(['menu/notes'])).catch(err => console.log('erreur lors de supp !')
     );
-    this.note=this.notesService.getLastNote();
+    this.note = this.notesService.getLastNote();
     // Redirection vers la page Notes
     //this.router.navigate(['menu/notes']);
 
@@ -43,7 +43,7 @@ export class NotePage implements OnInit {
 
     this.notesService.doneNote(this.note).then(res => this.router.navigate(['menu/notes'])).catch(err => console.log('erreur lors de supp !')
     );
-    this.note=this.notesService.getLastNote();
+    this.note = this.notesService.getLastNote();
     // Redirection vers la page Notes
     //this.router.navigate(['menu/notes']);
 
@@ -65,11 +65,23 @@ export class NotePage implements OnInit {
 
       buttons: [{ text: 'Annuler' },
 
-      { text: 'Modifier', handler: (data) => { 
-      this.note.content=data.content;
-      this.note.title = data.title;
-      this.note.time_stamp = new Date() ;
-      this.notesService.modifyNote() } }]
+      {
+        text: 'Modifier', handler: (data) => {
+
+          if (data.title == "") {
+            alert("Title is required !");
+            return false;
+          }
+          if (data.content == "") {
+            alert("Contenet is required !");
+            return false;
+          }
+          this.note.content = data.content;
+          this.note.title = data.title;
+          this.note.time_stamp = new Date();
+          this.notesService.modifyNote()
+        }
+      }]
 
     }).then((alert) => {
       alert.present();

@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+
+  <ion-toolbar color="dailynote">
+
+    <ion-buttons slot="start" *ngIf="!isSearchBarOpenedContact">
+      <!-- On ajoute ICI le bouton menu -->
+
+      <ion-menu-button></ion-menu-button>
+
+    </ion-buttons>
+
+    <ion-title *ngIf="!isSearchBarOpenedContact">Mes Contacts</ion-title>
+
+    <ion-searchbar *ngIf="isSearchBarOpenedContact" showCancelButton="true" animated="true"
+      (ionChange)="onChangeSearchContact($event)" (ionCancel)="searchBarCancel()"></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button ion-button icon-only (click)="changeIsopenedStatus()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--<div *ngFor="let note of notesService.notes">-->
+  <div *ngFor="let contact of searchedItemContact">
+    <ion-card [routerLink]="'contact/' + contact.id" routerDirection="forward"> 
+ 
+
+      <ion-card-header>
+        <ion-card-title>{{contact.nom}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{contact.tel}}</p>
+        <p>{{contact.mail}}</p>
+      </ion-card-content>
+
+    </ion-card>
+
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <!--  Un bouton flottant d'ajout permettant la création d'une note -->
+
+    <ion-fab-button color="dailynote" (click)="addContact()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab>
+</ion-content>

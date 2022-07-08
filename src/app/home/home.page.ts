@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from '../services/notes.service';
+import { contact } from '../shared/contact';
 import { note } from '../shared/note';
 
 @Component({
@@ -22,6 +23,13 @@ export class HomePage implements OnInit {
     isDone:false 
   }
 
+  contact : contact={
+    id: '' ,
+    nom: '' ,
+    tel: '',
+    mail: ''
+  }
+
   constructor(private notesService: NotesService , private alertCtrl:AlertController ) {
 
     this.notesService.initStorage();
@@ -32,6 +40,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     
      this.notesService.load().then(res => {this.note= this.notesService.getLastNote() } )
+     this.notesService.loadContacts().then(res => {this.contact= this.notesService.getLastContact() } )
   }
 
   //Ajout d'une note
@@ -47,7 +56,16 @@ export class HomePage implements OnInit {
 
       buttons: [{ text: 'Annuler' },
 
-      { text: 'Ajouter', handler: (data) => { this.notesService.createNote(data.title, data.content);
+      { text: 'Ajouter', handler: (data) => {
+        if ( data.title==""  ){
+          alert("Title is required !");
+          return false;
+        }
+        if ( data.content==""  ){
+          alert("Contenet is required !");
+          return false;
+        }
+        this.notesService.createNote(data.title, data.content);
       this.note = this.notesService.getLastNote()} }]
 
     }).then((alert) => {

@@ -1,15 +1,32 @@
 <ion-header>
   <ion-toolbar color="dailynote">
-    <ion-buttons slot="start">
-      <ion-menu-button> </ion-menu-button>
+
+
+    <ion-buttons slot="start" *ngIf="!isSearchBarOpened2" >
+      <!-- On ajoute ICI le bouton menu -->
+
+      <ion-menu-button></ion-menu-button>
+
     </ion-buttons>
-    <ion-title>Note terminé</ion-title>
+
+
+
+    <ion-title *ngIf="!isSearchBarOpened2" >Note terminé</ion-title>
+
+    <ion-searchbar *ngIf="isSearchBarOpened2" showCancelButton="true" animated="true" (ionChange)="onChangeSearchHistory($event)" (ionCancel) = "searchBarCancel()"></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button ion-button icon-only (click)="changeIsopenedStatus()"> 
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <div *ngFor="let note of notesService.notes">
+  <div *ngFor="let note of searchedItem2">
 
     <ion-card *ngIf="note.isDone"  [routerLink]="'note/' + note.id" routerDirection="forward" > <!--(click)="seeNote(note)"-->
       <ion-card-header>

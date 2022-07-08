@@ -12,10 +12,10 @@
 
     <ion-title *ngIf="!isSearchBarOpened" >Mes notes</ion-title>
 
-    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="true" animated="true" (ionChange)="onChangeSearch($event)" (ionCancel) = "isSearchBarOpened=false"></ion-searchbar>
+    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="true" animated="true" (ionChange)="onChangeSearch($event)" (ionCancel) = "searchBarCancel()"></ion-searchbar>
 
     <ion-buttons slot="end">
-      <ion-button ion-button icon-only (click)="isSearchBarOpened=true"> 
+      <ion-button ion-button icon-only (click)="changeIsopenedStatus()"> 
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>

@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-toolbar color="dailynote">
+
+    <ion-buttons slot="start"> <!--  Un bouton  permettant le retour en arrière -->
+
+      <ion-back-button defaultHref="/menu/contacts" text=""></ion-back-button>
+
+    </ion-buttons>
+
+    <ion-title>{{contact.nom}}</ion-title>
+
+    <ion-buttons  slot="end"> <!--  Un bouton  permettant la modification d'une note -->
+
+      <ion-button (click)="saveContact()">
+
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+    <ion-buttons  slot="end"> <!--  Un bouton  permettant la suppression d'une note  ion-button (click)="deleteNote()">-->
+      <!-- button permet de modifier l'etat d'une note-->
+      <ion-button (click)="deleteContact()">
+
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <p>Tel : {{contact.tel}}</p>
+  <p>Mail : {{contact.mail}}</p>
+  <h6 class="ion-text-end">Editée le:{{contact.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+
+</ion-content>

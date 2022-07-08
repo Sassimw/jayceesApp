@@ -40,6 +40,14 @@ const routes: Routes = [
       {
         path: 'notes-history',
         loadChildren: () => import('../notes-history/notes-history.module').then( m => m.NotesHistoryPageModule)
+      },
+      {
+        path: 'contacts',
+        loadChildren: () => import('../contacts/contacts.module').then( m => m.ContactsPageModule)
+      },
+      {
+        path: 'contacts/contact/:id',
+        loadChildren: () => import('../contact/contact.module').then( m => m.ContactPageModule)
       }
 
     ] 
