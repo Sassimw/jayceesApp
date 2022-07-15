@@ -16,6 +16,8 @@ export class ContactsPage implements OnInit {
   private searchedItemContact: any;
 
   public isSearchBarOpenedContact = false;
+  
+
 
   constructor(private contactsService: NotesService, private alertCtrl: AlertController, route: ActivatedRoute) {
 
@@ -23,6 +25,7 @@ export class ContactsPage implements OnInit {
     route.params.subscribe(val => {
       // this and load charge list
       this.loadAndChargeList();
+
     });
   }
 
@@ -150,5 +153,6 @@ export class ContactsPage implements OnInit {
     this.contactsService.loadContacts().then(res => console.log('chargement des contacts avec succes ! ' + this.contactsService.contacts));
     this.listContact = this.contactsService.contacts;
     this.searchedItemContact = this.listContact;
+    
   }
 }

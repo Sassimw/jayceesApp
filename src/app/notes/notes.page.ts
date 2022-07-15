@@ -113,5 +113,8 @@ export class NotesPage implements OnInit {
     this.notesService.load().then(res => console.log('chargement des notes avec succes ! ' + this.notesService.notes));
     this.list = this.notesService.notes;
     this.searchedItem = this.list;
+     
+  
+
   }
 }

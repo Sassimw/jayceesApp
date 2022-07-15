@@ -25,6 +25,22 @@
 
 <ion-content>
   <!--<div *ngFor="let note of notesService.notes">-->
+     
+      <ion-grid    *ngIf="!searchedItemContact?.length"  class="ion-text-center">
+        <ion-row>
+          <ion-col size="12">
+            <img src="assets/nodata.png"  >
+          
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+     
+   
+
+
+
+
+      
   <div *ngFor="let contact of searchedItemContact">
     <ion-card [routerLink]="'contact/' + contact.id" routerDirection="forward"> 
  
