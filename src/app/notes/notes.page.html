@@ -26,8 +26,15 @@
 
 <ion-content>
   <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) let note of notesNotDone-->
+  <ion-grid    *ngIf="arrayOcc==0"  class="test ion-text-center">
+    <ion-row>
+      <ion-col size="12">
+        <img src="assets/nodata.png"  >
+      
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-
   
 
   <!--<div *ngFor="let note of notesService.notes">-->
@@ -54,5 +61,5 @@
     </ion-fab-button>
 
   </ion-fab>
-
+  
 </ion-content>

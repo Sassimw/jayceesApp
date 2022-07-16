@@ -15,6 +15,7 @@ export class NotesHistoryPage implements OnInit {
   private searchedItem2: any;
 
   public isSearchBarOpened2 = false;
+  public arrayOccDone = 0;
 
   constructor(private notesService: NotesService, private alertCtrl: AlertController) {
 
@@ -81,5 +82,17 @@ export class NotesHistoryPage implements OnInit {
     this.notesService.load().then(res => console.log('chargement des notes avec succes ! ' + this.notesService.notes));
     this.list2 = this.notesService.notes;
     this.searchedItem2 = this.list2;
+
+    this.arrayOccDone = 0;
+   
+    for (let i = 0; i < this.searchedItem2.length; i++) {
+
+      if (this.searchedItem2[i].isDone) {
+        this.arrayOccDone += 1;
+         
+      }
+    }
+
+    console.log('number of occurences done : ' + this.searchedItem2);
   }
 }

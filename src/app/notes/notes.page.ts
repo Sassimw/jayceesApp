@@ -17,19 +17,19 @@ export class NotesPage implements OnInit {
   private searchedItem: any;
 
   public isSearchBarOpened = false;
-
+  public arrayOcc = 0;
 
   constructor(private notesService: NotesService, private alertCtrl: AlertController, route: ActivatedRoute) {
     //this called when navigate router to update the list
     route.params.subscribe(val => {
-       //load and charge list
-       this.loadAndChargeList();
+      //load and charge list
+      this.loadAndChargeList();
     });
   }
 
   ngOnInit() {
-     //load and charge list
-     this.loadAndChargeList();
+    //load and charge list
+    this.loadAndChargeList();
     /*for(let i=0;i<this.notesService.notes.length; i++){   
       if(this.notesService.notes[i].isDone==false) { 
         NotesPage.notesNotDone.push(this.notesService.notes[i]);           
@@ -69,6 +69,18 @@ export class NotesPage implements OnInit {
             (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
           );
           this.searchedItem = this.list;
+          this.arrayOcc = 0;
+           
+          for (let i = 0; i < this.searchedItem.length; i++) {
+
+            if (!this.searchedItem[i].isDone) {
+              this.arrayOcc += 1;
+              console.log('in for');
+              console.log(this.arrayOcc);
+            }
+          }
+
+           
         }
       }]
 
@@ -113,8 +125,19 @@ export class NotesPage implements OnInit {
     this.notesService.load().then(res => console.log('chargement des notes avec succes ! ' + this.notesService.notes));
     this.list = this.notesService.notes;
     this.searchedItem = this.list;
-     
-  
+    this.arrayOcc = 0;
+   
+    for (let i = 0; i < this.searchedItem.length; i++) {
+
+      if (!this.searchedItem[i].isDone) {
+        this.arrayOcc += 1;
+        console.log('in for');
+        console.log(this.arrayOcc);
+      }
+    }
+
+    console.log('number of occurences not done : ' + this.arrayOcc);
+
 
   }
 }
