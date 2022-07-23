@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from '../services/notes.service';
+import { action } from '../shared/action';
 import { contact } from '../shared/contact';
+import { evenement } from '../shared/evenement';
 import { note } from '../shared/note';
 
 @Component({
@@ -30,6 +32,20 @@ export class HomePage implements OnInit {
     mail: ''
   }
 
+  action : action={
+    id: '' ,
+    title: '' ,
+    content: '',
+    isDone:false 
+  }
+
+  evenemnt : evenement={
+    id: '' ,
+    title: '' ,
+    content: '',
+    isDone:false 
+  }
+
   constructor(private notesService: NotesService , private alertCtrl:AlertController ) {
 
     this.notesService.initStorage();
@@ -41,6 +57,8 @@ export class HomePage implements OnInit {
     
      this.notesService.load().then(res => {this.note= this.notesService.getLastNote() } )
      this.notesService.loadContacts().then(res => {this.contact= this.notesService.getLastContact() } )
+     this.notesService.loadAction().then(res => {this.action= this.notesService.getLastAction() } )
+     this.notesService.loadEvent().then(res => {this.evenemnt= this.notesService.getLastEvent() } )
   }
 
   //Ajout d'une note

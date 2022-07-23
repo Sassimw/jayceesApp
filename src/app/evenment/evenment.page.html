@@ -4,13 +4,13 @@
 
     <ion-buttons slot="start"> <!--  Un bouton  permettant le retour en arrière -->
 
-      <ion-back-button defaultHref="/menu/notes" text=""></ion-back-button>
+      <ion-back-button defaultHref="/menu/actions" text=""></ion-back-button>
 
     </ion-buttons>
 
-    <ion-title>{{note.title}}</ion-title>
+    <ion-title>{{event.title}}</ion-title>
 
-    <ion-buttons *ngIf="!note.isDone"  slot="end"> <!--  Un bouton  permettant la modification d'une note -->
+    <ion-buttons *ngIf="!event.isDone"  slot="end"> <!--  Un bouton  permettant la modification d'une note -->
 
       <ion-button (click)="saveNote()">
 
@@ -35,8 +35,8 @@
 
 <ion-content class="ion-padding">
 
-  {{note.content}}
+  {{event.content}}
 
-  <h6 class="ion-text-end">Editée le:{{note.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+  <h6 class="ion-text-end">Editée le:{{event.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
 
 </ion-content>

@@ -2,25 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NotesService } from '../services/notes.service';
-import { note } from '../shared/note';
+import { evenement } from '../shared/evenement';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.page.html',
-  styleUrls: ['./notes.page.scss'],
+  selector: 'app-evenments',
+  templateUrl: './evenments.page.html',
+  styleUrls: ['./evenments.page.scss'],
 })
-export class NotesPage implements OnInit {
-
-
+export class EvenmentsPage implements OnInit {
   //public static notesNotDone:note[] = [] ;
-  public list: Array<note> = [];
+  public list: Array<evenement> = [];
   private searchedItem: any;
 
   public isSearchBarOpened = false;
   public arrayOcc = 0;
+  constructor(private eventService: NotesService, private alertCtrl: AlertController, route: ActivatedRoute) { 
 
-  constructor(private notesService: NotesService, private alertCtrl: AlertController, route: ActivatedRoute) {
-    //this called when navigate router to update the list
     route.params.subscribe(val => {
       //load and charge list
       this.loadAndChargeList();
@@ -28,26 +25,19 @@ export class NotesPage implements OnInit {
   }
 
   ngOnInit() {
-    //load and charge list
     this.loadAndChargeList();
-    /*for(let i=0;i<this.notesService.notes.length; i++){   
-      if(this.notesService.notes[i].isDone==false) { 
-        NotesPage.notesNotDone.push(this.notesService.notes[i]);           
-      }  
-    }*/
   }
 
-
-
+  
   //Ajout d'une note
 
   async addNote() {
 
     this.alertCtrl.create({
 
-      header: 'Nouvelle session',
+      header: 'Nouvelle evenment',
 
-      inputs: [{ type: 'text', name: 'title', placeholder: 'Intitulé de la session...' },
+      inputs: [{ type: 'text', name: 'title', placeholder: "Intitulé de l'evenment..." },
 
       { type: 'text', name: 'content', id: 'note-content', placeholder: 'Saisissez votre texte ici...' }],
 
@@ -63,24 +53,24 @@ export class NotesPage implements OnInit {
             alert("Contenet is required !");
             return false;
           }
-          this.notesService.createNote(data.title, data.content);
-          this.list = this.notesService.notes;
+          this.eventService.createEvent(data.title, data.content);
+          this.list = this.eventService.evenements;
           this.list.sort(
             (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
           );
           this.searchedItem = this.list;
           this.arrayOcc = 0;
-           
-          for (let i = 0; i < this.searchedItem.length; i++) {
 
-            if (!this.searchedItem[i].isDone) {
-              this.arrayOcc += 1;
-              console.log('in for');
-              console.log(this.arrayOcc);
-            }
+          for (let i = 0; i < this.list.length; i++) {
+
+
+            this.arrayOcc += 1;
+            console.log('in for');
+            console.log(this.arrayOcc);
+
           }
 
-           
+
         }
       }]
 
@@ -122,22 +112,25 @@ export class NotesPage implements OnInit {
   }
 
   loadAndChargeList() {
-    this.notesService.load().then(res => console.log('chargement des notes avec succes ! ' + this.notesService.notes));
-    this.list = this.notesService.notes;
+    this.eventService.loadEvent().then(
+      res => console.log('chargement des action avec succes ! ' + this.eventService.evenements));
+    this.list = this.eventService.evenements;
     this.searchedItem = this.list;
     this.arrayOcc = 0;
-   
-    for (let i = 0; i < this.searchedItem.length; i++) {
 
-      if (!this.searchedItem[i].isDone) {
-        this.arrayOcc += 1;
-        console.log('in for');
-        console.log(this.arrayOcc);
-      }
+    for (let i = 0; i < this.list.length; i++) {
+
+
+      this.arrayOcc += 1;
+      console.log('in for');
+      console.log(this.arrayOcc);
+
     }
 
     console.log('number of occurences not done : ' + this.arrayOcc);
 
 
   }
+
+
 }

@@ -11,10 +11,10 @@ import { AuthService } from '../services/auth.service';
 export class MenuPage implements OnInit {
 
   appPages = [ 
-    { title: 'Accueil', url: '/menu/home', icon: 'home'} , 
-    { title: 'Notes en cours', url: '/menu/notes', icon: 'paper-plane'}, 
-    { title: 'Notes terminé', url: '/menu/notes-history', icon: 'checkmark-done' },
-    { title: 'Méteo', url: '/menu/weather', icon: 'sunny' },
+    { title: 'Home', url: '/menu/home', icon: 'home'} , 
+    { title: 'Session', url: '/menu/notes', icon: 'book'}, 
+    { title: 'Evenments', url: '/menu/evenments', icon: 'calendar'}, 
+    { title: 'Actions', url: '/menu/actions', icon: 'footsteps'}, 
     { title: 'Contacts', url: '/menu/contacts', icon: 'call' },
     { title: 'Mon profil', url: '/menu/profile', icon: 'person-circle' } 
   ]; 

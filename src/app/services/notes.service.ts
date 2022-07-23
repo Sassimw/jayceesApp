@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { NotesPage } from '../notes/notes.page';
+import { action } from '../shared/action';
 import { contact } from '../shared/contact';
+import { evenement } from '../shared/evenement';
 import { note } from '../shared/note';
 
 @Injectable({
@@ -11,6 +12,8 @@ export class NotesService {
 
   public notes: note[] = [];
   public contacts: contact[] = [];
+  public evenements: evenement[] = [];
+  public actions: action[] = [];
 
   constructor(private storage: Storage) { }
 
@@ -167,5 +170,147 @@ export class NotesService {
     );
     return this.contacts[0];
   }
+
+  /* Events ********************************************************************************************************************/
+  // charger tous les events de db
+  async loadEvent() {
+    let evenements = await this.storage.get('events');
+    if (evenements) {
+      this.evenements = evenements;
+      this.evenements.sort(
+        (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
+      );
+
+    }
+
+
+
+  }
+
+  //sauvgarde des notes
+  async saveEvent() {
+    await this.storage.set('events', this.evenements);
+  }
+
+  //get note by id
+  getEventById(id: string): evenement {
+    return this.evenements.find(evenement => evenement.id === id);
+  }
+
+  //creation d'un note
+  async createEvent(title: string, content: string) {
+
+    let id = Math.max(...this.evenements.map(evenement => parseInt(evenement.id)), 0) + 1;
+    this.evenements.push({
+      id: id.toString(),
+      title: title,
+      content: content,
+      time_stamp: new Date(),
+      isDone: false
+    })
+
+    await this.saveEvent();
+    this.loadEvent();
+
+  }
+  //modification d'un event 
+  async modifyEvent() {
+    await this.saveEvent();
+    this.loadEvent();
+
+  }
+  //supprimer event
+  async deleteEvent(evenement: evenement) {
+
+    let index = this.evenements.indexOf(evenement);
+
+    if (index > -1) {
+      this.evenements.splice(index, 1);
+      await this.saveEvent();
+      this.loadEvent();
+    }
+  }
+   
+  //renvoie la derniere note
+  getLastEvent(): evenement {
+    //return this.notes[this.notes.length-1] ;
+    // after sorting the table we have to change the index of the table
+    this.evenements.sort(
+      (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
+    );
+    return this.evenements[0];
+  }
+
+   /* Actions ********************************************************************************************************************/
+  // charger tous les events de db
+  async loadAction() {
+    let actions = await this.storage.get('actions');
+    if (actions) {
+      this.actions = actions;
+      this.actions.sort(
+        (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
+      );
+
+    }
+
+
+
+  }
+
+  //sauvgarde des notes
+  async saveAction() {
+    await this.storage.set('actions', this.actions);
+  }
+
+  //get note by id
+  getActionById(id: string): action {
+    return this.actions.find(actions => actions.id === id);
+  }
+
+  //creation d'un note
+  async createAction(title: string, content: string) {
+
+    let id = Math.max(...this.actions.map(evenement => parseInt(evenement.id)), 0) + 1;
+    this.actions.push({
+      id: id.toString(),
+      title: title,
+      content: content,
+      time_stamp: new Date(),
+      isDone: false
+    })
+
+    await this.saveAction();
+    this.loadAction();
+
+  }
+  //modification d'un event 
+  async modifyAction() {
+    await this.saveAction();
+    this.loadAction();
+
+  }
+  //supprimer event
+  async deleteAction(action: action) {
+
+    let index = this.actions.indexOf(action);
+
+    if (index > -1) {
+      this.actions.splice(index, 1);
+      await this.saveAction();
+      this.loadAction();
+    }
+  }
+   
+  //renvoie la derniere note
+  getLastAction(): action {
+    //return this.notes[this.notes.length-1] ;
+    // after sorting the table we have to change the index of the table
+    this.actions.sort(
+      (objA, objB) => objB.time_stamp.getTime() - objA.time_stamp.getTime(),
+    );
+    return this.actions[0];
+  }
+
+
 
 }

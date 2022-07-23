@@ -48,6 +48,22 @@ const routes: Routes = [
       {
         path: 'contacts/contact/:id',
         loadChildren: () => import('../contact/contact.module').then( m => m.ContactPageModule)
+      },
+      {
+        path: 'evenments',
+        loadChildren: () => import('../evenments/evenments.module').then( m => m.EvenmentsPageModule)
+      },
+      {
+        path: 'evenments/evenment/:id',
+        loadChildren: () => import('../evenment/evenment.module').then( m => m.EvenmentPageModule)
+      },
+      {
+        path: 'actions',
+        loadChildren: () => import('../actions/actions.module').then( m => m.ActionsPageModule)
+      },
+      {
+        path: 'actions/action/:id',
+        loadChildren: () => import('../action/action.module').then( m => m.ActionPageModule)
       }
 
     ] 

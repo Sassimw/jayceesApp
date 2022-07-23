@@ -10,7 +10,7 @@
 
     </ion-buttons>
 
-    <ion-title *ngIf="!isSearchBarOpened" >Mes notes</ion-title>
+    <ion-title *ngIf="!isSearchBarOpened" >My sessions</ion-title>
 
     <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="true" animated="true" (ionChange)="onChangeSearch($event)" (ionCancel) = "searchBarCancel()"></ion-searchbar>
 
@@ -26,7 +26,7 @@
 
 <ion-content>
   <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) let note of notesNotDone-->
-  <ion-grid    *ngIf="arrayOcc==0"  class="test ion-text-center">
+  <ion-grid   *ngIf="!searchedItem?.length"   class="test ion-text-center">
     <ion-row>
       <ion-col size="12">
         <img src="assets/nodata.png"  >
@@ -39,7 +39,7 @@
 
   <!--<div *ngFor="let note of notesService.notes">-->
     <div *ngFor="let note of searchedItem">
-    <ion-card *ngIf="!note.isDone" [routerLink]="'note/' + note.id" routerDirection="forward">
+    <ion-card  [routerLink]="'note/' + note.id" routerDirection="forward">
       
       <ion-card-header>
         <ion-card-title>{{note.title}}</ion-card-title>

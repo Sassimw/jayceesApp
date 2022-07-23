@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="dailynote">
+    <!-- On ajoute ICI la nouvelle couleur  -->
+
+    <ion-buttons slot="start" *ngIf="!isSearchBarOpened" >
+      <!-- On ajoute ICI le bouton menu -->
+
+      <ion-menu-button></ion-menu-button>
+
+    </ion-buttons>
+
+    <ion-title *ngIf="!isSearchBarOpened" >My Events</ion-title>
+
+    <ion-searchbar *ngIf="isSearchBarOpened" showCancelButton="true" animated="true" (ionChange)="onChangeSearch($event)" (ionCancel) = "searchBarCancel()"></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button ion-button icon-only (click)="changeIsopenedStatus()"> 
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-content>
+    <!-- ...On affiche nos notes ICI à l'aide d'une boucle for (ngFor) let note of notesNotDone-->
+   
+    
+    
+  
+    <!--<div *ngFor="let note of notesService.notes">-->
+      <div *ngFor="let event of searchedItem">
+      <ion-card  [routerLink]="'evenment/' + event.id" routerDirection="forward">
+        
+        <ion-card-header>
+          <ion-card-title>{{event.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{event.content}}</p>
+          <h6 class="ion-text-end">Editée le:{{event.time_stamp|date: 'dd/MM/yyyy - HH:mm'}} </h6>
+        </ion-card-content>
+   
+    </ion-card>
+  
+    </div>
+    <ion-grid   *ngIf="arrayOcc==0"   class="test ion-text-center">
+      <ion-row>
+        <ion-col size="12">
+          <img src="assets/nodata.png"  >
+        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <!--  Un bouton flottant d'ajout permettant la création d'une note -->
+  
+      <ion-fab-button color="dailynote" (click)="addNote()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+  
+    </ion-fab>
+    
+</ion-content>
